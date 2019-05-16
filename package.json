@@ -6,7 +6,8 @@
   "scripts": {
     "build": "npx webpack --config webpack.config.js",
     "build:watch": "npx webpack -w --config webpack.config.js",
-    "build:prod": "npx webpack --config webpack.prod.js"
+    "build:prod": "npx webpack --config webpack.prod.js",
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,8 @@
   },
   "homepage": "https://github.com/jhaemin/summer-todo-list#readme",
   "dependencies": {
+    "express": "^4.16.4",
+    "resize-sensor": "0.0.6",
     "vue": "^2.6.10"
   },
   "devDependencies": {
@@ -37,8 +40,11 @@
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "terser-webpack-plugin": "^1.2.4",
+    "ts-loader": "^6.0.0",
+    "typescript": "^3.4.5",
     "vue-loader": "^15.7.0",
     "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.10",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2",
     "webpack-merge": "^4.2.1",
