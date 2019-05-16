@@ -102,7 +102,7 @@ export default {
 
 .todo-container {
   width: calc(100% - 3rem);
-  max-width: 27rem;
+  max-width: 30rem;
   margin: auto;
   padding-bottom: 5rem;
 
