@@ -23,9 +23,8 @@
     <div class="empty-todo-list" v-else>
       <p class="title">No Task Yet</p>
       <p class="manifesto">
-        Designed and developed<br>
-        by Jang Haemin(<a href="https://github.com/jhaemin">@jhaemin</a>)<br>
-
+        Designed and Developed<br>
+        by Jang Haemin(<a target="_" href="https://github.com/jhaemin">@jhaemin</a>)
       </p>
     </div>
   </div>
@@ -78,7 +77,6 @@ export default {
       Storage.storeList(this.todoList)
     },
     setDueDate(index, year, month, day) {
-      console.log(index, year, month, day)
       if (year === false) {
         this.todoList[index].duedate = null
       } else {
@@ -104,14 +102,15 @@ export default {
 
 .todo-container {
   width: calc(100% - 3rem);
-  max-width: 30rem;
+  max-width: 27rem;
   margin: auto;
+  padding-bottom: 5rem;
 
   .summer-todolist-title {
+    font-size: 2rem;
     text-align: center;
     color: darken($white-blue, 70%);
     padding-top: 3rem;
-    margin-left: $default-border-radius;
   }
 
   .new-todo {
