@@ -107,6 +107,12 @@ export default {
         }, 4)
       }
     },
+    adjustTitleBoxSize() {
+      console.log('adjust')
+      let title = this.$el.querySelector('textarea.title')
+      console.log(title)
+      title.style.height = title.scrollHeight + 'px'
+    },
     updateTitle(index, newTitle) {
       this.$el.querySelector('.title').blur()
       this.$emit('updateTitle', index, newTitle)
@@ -132,12 +138,10 @@ export default {
       this.dueMonth = due.getMonth() + 1
       this.dueDay = due.getDate()
     } else {
-      console.log('here')
       let date = new Date(Date.now() + 24 * 3600 * 1000)
       this.dueYear = date.getFullYear()
       this.dueMonth = date.getMonth() + 1
       this.dueDay = date.getDate()
-      console.log(this.dueYear, this.dueMonth, this.dueDay)
     }
   }
 }
@@ -153,6 +157,11 @@ export default {
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   overflow: hidden;
+  transition: opacity 300ms ease;
+
+  &.indicating {
+    
+  }
 
   .hero {
     display: flex;
@@ -173,8 +182,13 @@ export default {
     }
 
     .title {
+      resize: none;
       display: block;
       flex: 1;
+      height: 2rem;
+      min-width: 0;
+      line-height: 1;
+      text-overflow: ellipsis;
       font-size: 1rem;
       font-weight: 500;
       padding: 0.5rem 0.5rem;
@@ -215,7 +229,7 @@ export default {
     margin-bottom: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
-    transition: padding 300ms ease, margin 300ms ease, height 300ms;
+    transition: height 300ms;
 
     .option {
       padding: 1rem 0;
@@ -244,10 +258,6 @@ export default {
           background-repeat: no-repeat;
           background-size: 1.2rem;
           background-position: center;
-        }
-
-        &:active {
-          color: $blue;
         }
       }
 
@@ -296,6 +306,9 @@ export default {
   }
 
   &.done {
+    opacity: 0.7;
+    box-shadow: $shadow-opaque;
+
     .hero {
       .done-checkbox {
         border-color: darken($green, 3%);
