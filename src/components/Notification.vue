@@ -10,7 +10,7 @@
         </div>
         <div class="expired-task-container">
           <div class="expired-task" v-for="task in expiredList" :key="task.title + task.createdAt">
-            <div>{{ getDateString(task.duedate) }}</div>
+            <div class="due">{{ getDateString(task.duedate) }}</div>
             <div>{{ task.title }}</div>
           </div>
         </div>
@@ -96,7 +96,7 @@ export default {
   z-index: 9999;
   background-color: rgb(29, 101, 226);
   box-shadow: 0 0.5rem 2rem rgba(0,0,0,0.2);
-  border-radius: $default-border-radius;
+  border-radius: 0.5rem;
   color: $white;
   overflow-y: auto;
   will-change: transform, opacity;
@@ -136,13 +136,20 @@ export default {
       &, & * {
         font-family: $font-text;
         font-size: 0.8rem;
+        line-height: 1;
       }
 
       cursor: pointer;
       background-color: rgba(#000, 0.1);
-      padding: 0.5rem;
+      padding: 0.7rem;
       margin-bottom: 0.5rem;
       border-radius: $default-border-radius;
+
+      .due {
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        opacity: 0.7;
+      }
     }
   }
 }
