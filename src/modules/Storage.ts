@@ -22,14 +22,14 @@ export default class Storage {
       window.localStorage.setItem('summer-todo-list', list)
     }
 
-    console.log(JSON.stringify(JSON.parse(list), null, 2))
+    // console.log(JSON.stringify(JSON.parse(list), null, 2))
     
     return JSON.parse(list)
   }
 
   // stores list
   static storeList(list: TodoItem) {
-    console.log(JSON.stringify(list, null, 2))
+    // console.log(JSON.stringify(list, null, 2))
     window.localStorage.setItem('summer-todo-list', JSON.stringify(list))
   }
 }
