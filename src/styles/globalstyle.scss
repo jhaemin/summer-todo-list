@@ -1,0 +1,178 @@
+@import './fonts.css';
+@import 'Styles/global-variables.scss';
+@import 'Styles/global-mixins.scss';
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  font-size: 85%;
+  background-color: $white-blue;
+  // transition: background-color 1000ms ease;
+
+  &.dark-mode {
+    background-color: $black;
+    .mode--light {
+      display: none !important;
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    &.auto-color-scheme {
+      background-color: $black;
+      .mode--light {
+        display: none !important;
+      }
+    }
+  }
+
+  &.light-mode {
+    background-color: $white;
+    .mode--dark {
+      display: none !important;
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    &.auto-color-scheme {
+      background-color: $white;
+      .mode--dark {
+        display: none !important;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  html {
+    font-size: 110%;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  html {
+    font-size: 120%;
+  }
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -o-font-smoothing: antialiased;
+  font-family: $font-text;
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+  word-break: keep-all;
+  background-color: $white-blue;
+  font-size: 17px;
+  color: $black;
+  // user-select: none;
+  transition: background-color 500ms ease;
+
+  @include dark-mode() {
+    background-color: $black;
+    color: $white;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-display;
+  font-weight: 700;
+  user-select: none;
+  cursor: default;
+}
+
+p, a, textarea, span, div, input {
+  font-family: $font-text;
+  font-weight: 400;
+  color: inherit;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+li {
+  text-decoration: none;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  -webkit-touch-callout: none !important;
+  color: $blue;
+
+  &.inner-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+input, textarea {
+  border: none;
+  background: none;
+}
+
+button {
+  font-family: $font-text;
+  background: none;
+  border: none;
+}
+
+img {
+  user-select: none;
+  pointer-events: none;
+}
+
+select {
+  position: relative;
+  appearance: none;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.8rem;
+  background-image: url('/assets/images/down_arrow.svg');
+  background-repeat: no-repeat;
+  background-position: calc(100% - 0.5rem) center;
+  background-size: 1rem;
+  background-color: darken($white-blue, 2%);
+  border-radius: $default-border-radius;
+  border: none;
+  font-weight: 500;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 150ms ease !important;
+  opacity: 1 !important;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0 !important;
+}
+
+.fade-slow-enter-active, .fade-slow-leave-active {
+  transition: opacity 0.3s ease !important;
+  opacity: 1 !important;
+}
+.fade-slow-enter, .fade-slow-leave-to {
+  opacity: 0 !important;
+}
+
+.grid-dummy {
+  height: 0;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  pointer-events: none;
+}
