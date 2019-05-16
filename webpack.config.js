@@ -3,7 +3,7 @@ const WebpackMessages = require('webpack-messages')
 
 module.exports = {
 	entry: {
-		'summer': ['./src/main.js']
+		'todo': ['./src/main.js']
 	},
 	mode: 'development',
 	devtool: 'inline-source-map',
