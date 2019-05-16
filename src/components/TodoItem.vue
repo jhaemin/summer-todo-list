@@ -152,6 +152,7 @@ export default {
 @import 'Styles/global-mixins';
 
 .todo-item {
+  width: 100%;
   background-color: $white;
   box-shadow: $shadow;
   margin-bottom: 1rem;
@@ -187,7 +188,6 @@ export default {
       flex: 1;
       height: 2rem;
       min-width: 0;
-      line-height: 1;
       text-overflow: ellipsis;
       font-size: 1rem;
       font-weight: 500;
