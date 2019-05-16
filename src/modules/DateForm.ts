@@ -19,6 +19,6 @@ export default class DateForm {
 
   static toString(ms: number, format: number = 1) {
     let date = new Date(ms)
-    return `${date.getFullYear()}. ${this.padZero(date.getMonth())}. ${this.padZero(date.getDate())}.`
+    return `${date.getFullYear()}. ${this.padZero(date.getMonth() + 1)}. ${this.padZero(date.getDate())}.`
   }
 }
