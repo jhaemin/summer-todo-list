@@ -6,7 +6,7 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
-  font-size: 85%;
+  font-size: 90%;
   background-color: $white-blue;
   // transition: background-color 1000ms ease;
 
@@ -89,6 +89,10 @@ h1, h2, h3, h4, h5, h6 {
   cursor: default;
 }
 
+h1 {
+  font-size: 2rem;
+}
+
 p, a, textarea, span, div, input {
   font-family: $font-text;
   font-weight: 400;
@@ -128,6 +132,7 @@ button {
   font-family: $font-text;
   background: none;
   border: none;
+  cursor: pointer;
 }
 
 img {
@@ -148,6 +153,10 @@ select {
   border-radius: $default-border-radius;
   border: none;
   font-weight: 500;
+}
+
+.modal-active {
+  overflow: hidden;
 }
 
 .fade-enter-active, .fade-leave-active {
