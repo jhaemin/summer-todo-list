@@ -3,7 +3,7 @@ const WebpackMessages = require('webpack-messages')
 
 module.exports = {
 	entry: {
-		'eodiro.app': ['./src/main.js']
+		'summer': ['./src/main.js']
 	},
 	mode: 'development',
 	devtool: 'inline-source-map',
