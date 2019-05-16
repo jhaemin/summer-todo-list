@@ -1,7 +1,8 @@
 <template>
-  <div id="summer-togo-list-app">
+  <div id="summer-todo-list-app">
     <Notification/>
     <TodoList/>
+    <img src="/assets/images/summer@5x.png" alt="">
   </div>
 </template>
 
@@ -17,6 +18,12 @@ export default {
 
 <style lang="scss" scoped>
 #summer-todo-list-app {
-
+  img {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+  }
 }
 </style>
