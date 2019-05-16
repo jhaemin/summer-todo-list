@@ -2,7 +2,7 @@
   <div id="summer-todo-list-app">
     <Notification/>
     <TodoList/>
-    <img src="/assets/images/summer@5x.png" alt="">
+    <img src="/assets/images/summer@7x.png" alt="">
   </div>
 </template>
 
