@@ -20,10 +20,13 @@ export default {
 #summer-todo-list-app {
   img {
     position: fixed;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(10vw);
     bottom: 0;
     width: 100%;
     z-index: -1;
+    opacity: 0.8;
+    min-width: 70rem;
   }
 }
 </style>
