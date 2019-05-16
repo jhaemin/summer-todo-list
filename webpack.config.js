@@ -12,7 +12,7 @@ module.exports = {
 		filename: '[name].built.js'
 	},
 	resolve: {
-		extensions: ['.js', '.ts', '.scss', '.css', '.vue'],
+		extensions: ['.js', '.ts', '.scss', '.css', '.vue', 'styl'],
 		alias: {
 			vue$: 'vue/dist/vue.esm.js',
 			Styles: __dirname + '/src/styles/',
@@ -43,6 +43,19 @@ module.exports = {
 							]
 						}
 					}
+				]
+			},
+			{
+				test: [/\.tsx?$/],
+				exclude: /(node_modules|bower_components)/,
+				use: [
+					{
+						loader: 'babel-loader',
+						options: {
+							presets: ['@babel/preset-env']
+						}
+					},
+					'ts-loader'
 				]
 			},
 			{
