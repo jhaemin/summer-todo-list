@@ -60,11 +60,14 @@ export default {
 
       this.expiredList = el
     },
+    // milliseconds to human-readable date string
+    // using custom DateForm class
     getDateString(ms) {
       return DateForm.toString(ms)
     }
   },
   mounted() {
+    // check out of date tasks every 1 second
     window.setInterval(this.checkTaskDuedate, 1000)
   }
 }
