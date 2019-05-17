@@ -25,8 +25,8 @@ export default {
     bottom: 0;
     width: 100%;
     z-index: -1;
-    opacity: 0.8;
-    min-width: 70rem;
+    opacity: 0.3;
+    min-width: 50rem;
   }
 }
 </style>
