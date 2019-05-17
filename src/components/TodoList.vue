@@ -18,10 +18,11 @@
         @undone="doneTask(i, false)"
         @updateTitle="updateTttle"
         @setDueDate="setDueDate"
+        @setPriority="setPriority"
       />
     </ol>
     <div class="empty-todo-list" v-else>
-      <p class="title">No Task Yet</p>
+      <p class="title">No Task Yet<br><button class="example" @click="loadSample">Load Samples</button></p>
       <p class="manifesto">
         Designed and Developed<br>
         by Jang Haemin(<a target="_" href="https://github.com/jhaemin">@jhaemin</a>)
@@ -56,6 +57,7 @@ export default {
         title: this.newTaskTitle,
         createdAt: Date.now(),
         duedate: null,
+        priority: 1,
         isDone: false
       }
 
@@ -85,9 +87,17 @@ export default {
 
       Storage.storeList(this.todoList)
     },
+    setPriority(index, priority) {
+      this.todoList[index].priority = priority
+      Storage.storeList(this.todoList)
+    },
     deleteTask(index) {
       this.todoList.splice(index, 1)
       Storage.storeList(this.todoList)
+    },
+    loadSample() {
+      Storage.generateSamples()
+      this.todoList = Storage.loadList()
     }
   },
   created() {
@@ -117,13 +127,14 @@ export default {
     .input-title {
       text-align: center;
       display: block;
-      width: 100%;
-      padding: 1rem 1.2rem;
+      width: calc(100% - 1rem);
+      padding: 1rem 1.2rem 0.5rem;
       font-size: 1rem;
       font-weight: 500;
       font-family: $font-text;
       margin-top: 1.5rem;
-      // border-bottom: 1px solid darken($white-blue, 10%);
+      margin: 1.5rem 0.5rem 0;
+      border-bottom: 1px solid darken($white-blue, 10%);
     }
   }
 
@@ -132,24 +143,35 @@ export default {
   }
 
   .empty-todo-list {
-    font-family: $font-text;
-    font-size: 1rem;
     margin-top: 2rem;
     padding: 1.5rem;
     text-align: center;
-    color: $gray;
+    
     background-color: darken($white-blue, 3%);
     border-radius: $default-border-radius;
 
+    &, & * {
+      font-family: $font-text;
+      font-size: 1rem;
+      color: $gray;
+    }
+
     .title {
-      font-weight: 700;
+      &, & * {
+        font-weight: 700;
+      }
       padding-bottom: 1.5rem;
       border-bottom: 1px solid darken($white-blue, 10%);
+
+      .example {
+        color: $blue;
+        margin-top: 0.3rem;
+      }
     }
 
     .manifesto {
       margin-top: 1.5rem;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       line-height: 1.3;
       font-weight: 500;
     }
