@@ -2,67 +2,67 @@
   <li class="todo-item"
     :class="{done: isDone}"
   >
-    <div class="priority-indicator" :class="`priority--${info.priority}`"></div>
-    <div class="hero">
-      <div @click="toggleDone" class="done-checkbox"></div>
-      <input
-        class="title"
-        v-model="taskTitle"
-        @blur="updateTitle(index, taskTitle)"
-        @keydown.enter="updateTitle(index, taskTitle)"
-        @focus="isOptionVisible = false"
-        :style="{transform: 'sacle(1)'}"
-        placeholder="New Title"
-      />
-      <button class="more" @click="toggleOption" :class="{open: isOptionVisible}"></button>
-    </div>
-    <div class="option-wrapper"
-      :style="{height: optionHeight}"
-    >
-      <div class="option">
-        <div class="due-date">
-          <p class="title" @click="setDueDate(true)">
-            <span v-if="info.duedate">Due Date</span>
-            <span v-else>Set Due Date</span>
-          </p>
-          <div class="date-select" v-if="info.duedate">
-            <select
-              v-model="dueYear"
-              @change="setDueDate(true)"
-            >
-              <option v-for="i in 5" :key="`year-${i}`">{{ new Date().getFullYear() - i + 1 }}</option>
-            </select>
-            <select
-              v-model="dueMonth"
-              @change="setDueDate(true)"
-            >
-              <option v-for="i in 12" :key="`month-${i}`">{{ i }}</option>
-            </select>
-            <select
-              v-model="dueDay"
-              @change="setDueDate(true)"
-            >
-              <option v-for="i in numberOfDay" :key="`day-${i}`">{{ i }}</option>
-            </select>
-            <button class="no-duedate" @click="setDueDate(false)"></button>
-          </div>
-        </div>
-        <div class="priority">
-          <p class="title" @click="setPriority(true)">Priority</p>
-          <div class="priority-select">
-            <div class="input-wrapper">
-              <input type="radio" value="1" @change="setPriority(true)" v-model="priority" class="p1">
-            </div>
-            <div class="input-wrapper">
-              <input type="radio" value="2"  @change="setPriority(true)" v-model="priority" class="p2">
-            </div>
-            <div class="input-wrapper">
-              <input type="radio" value="3"  @change="setPriority(true)" v-model="priority" class="p3">
+    <div class="todo-item-spring-wrapper">
+      <div class="priority-indicator" :class="`priority--${info.priority}`"></div>
+      <div class="hero">
+        <div @click="toggleDone" class="done-checkbox"></div>
+        <input
+          class="title"
+          v-model="taskTitle"
+          @blur="updateTitle(index, taskTitle)"
+          @keydown.enter="updateTitle(index, taskTitle)"
+          placeholder="New Title"
+        />
+        <button class="more" @click="toggleOption" :class="{open: isOptionVisible}"></button>
+      </div>
+      <div class="option-wrapper"
+        :style="{height: optionHeight}"
+      >
+        <div class="option">
+          <div class="due-date">
+            <p class="title" @click="setDueDate(true)">
+              <span v-if="info.duedate">Due Date</span>
+              <span v-else>Set Due Date</span>
+            </p>
+            <div class="date-select" v-if="info.duedate">
+              <select
+                v-model="dueYear"
+                @change="setDueDate(true)"
+              >
+                <option v-for="i in 5" :key="`year-${i}`">{{ new Date().getFullYear() - i + 1 }}</option>
+              </select>
+              <select
+                v-model="dueMonth"
+                @change="setDueDate(true)"
+              >
+                <option v-for="i in 12" :key="`month-${i}`">{{ i }}</option>
+              </select>
+              <select
+                v-model="dueDay"
+                @change="setDueDate(true)"
+              >
+                <option v-for="i in numberOfDay" :key="`day-${i}`">{{ i }}</option>
+              </select>
+              <button class="no-duedate" @click="setDueDate(false)"></button>
             </div>
           </div>
-        </div>
-        <div class="delete-wrapper">
-          <button class="delete" @click="$emit('delete')"></button>
+          <div class="priority">
+            <p class="title" @click="setPriority(true)">Priority</p>
+            <div class="priority-select">
+              <div class="input-wrapper">
+                <input type="radio" value="1" @change="setPriority(true)" v-model="priority" class="p1">
+              </div>
+              <div class="input-wrapper">
+                <input type="radio" value="2"  @change="setPriority(true)" v-model="priority" class="p2">
+              </div>
+              <div class="input-wrapper">
+                <input type="radio" value="3"  @change="setPriority(true)" v-model="priority" class="p3">
+              </div>
+            </div>
+          </div>
+          <div class="delete-wrapper">
+            <button class="delete" @click="$emit('delete')"></button>
+          </div>
         </div>
       </div>
     </div>
@@ -89,6 +89,7 @@ export default {
     }
   },
   computed: {
+    // get the number of day of the given YYYY-MM
     numberOfDay() {
       return new Date(this.dueYear, this.dueMonth, 0).getDate()
     }
@@ -115,24 +116,32 @@ export default {
         this.$emit('done')
       }
     },
+    // temprarily disable the expanding animation
+    // since the height transition performance is not good
     rerenderOptionBox() {
-      if (this.isOptionVisible) {
-        setTimeout(() => {
-          this.$el.querySelector('.option').getBoundingClientRect().height
-          this.optionHeight = this.$el.querySelector('.option').getBoundingClientRect().height + 'px'
-        }, 4)
-      }
+      // if (this.isOptionVisible) {
+      //   setTimeout(() => {
+      //     this.$el.querySelector('.option').getBoundingClientRect().height
+      //     this.optionHeight = this.$el.querySelector('.option').getBoundingClientRect().height + 'px'
+      //   }, 4)
+      // }
+      this.optionHeight = 'auto'
     },
+    // test code for flexible title box size
+    // currently, title stays only in a single line
     adjustTitleBoxSize() {
-      console.log('adjust')
       let title = this.$el.querySelector('textarea.title')
       console.log(title)
       title.style.height = title.scrollHeight + 'px'
     },
+    // update title by emitting event to parent component,
+    // then blur the title input
     updateTitle(index, newTitle) {
       this.$el.querySelector('.title').blur()
       this.$emit('updateTitle', index, newTitle)
     },
+    // set duedate of the task
+    // by emitting the event
     setDueDate(isSet) {
       if (isSet) {
         this.$emit('setDueDate', this.index, this.dueYear, this.dueMonth, this.dueDay)
@@ -140,6 +149,7 @@ export default {
         this.$emit('setDueDate', this.index, false)
       }
     },
+    // set priority of the task
     setPriority(isSet) {
       if (isSet) {
         this.$emit('setPriority', this.index, this.priority)
@@ -147,10 +157,13 @@ export default {
     }
   },
   mounted() {
-    new ResizeSensor(this.$el.querySelector('.option'), () => {
-      this.rerenderOptionBox()
-    })
+    // new ResizeSensor(this.$el.querySelector('.option'), () => {
+    //   this.rerenderOptionBox()
+    // })
   },
+  // when the component is created,
+  // set the default options using the data
+  // fetched from the parent component
   created() {
     if (this.info.duedate) {
       let due = new Date(this.info.duedate)
@@ -176,12 +189,22 @@ export default {
 .todo-item {
   position: relative;
   width: 100%;
-  background-color: $white;
-  box-shadow: $shadow;
   margin-bottom: 1rem;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  transition: opacity 300ms ease, box-shadow 300ms ease;
+
+  .todo-item-spring-wrapper {
+    width: 100%;
+    background-color: $white;
+    box-shadow: $shadow;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: opacity 300ms ease, box-shadow 300ms ease;
+    opacity: 0;
+
+    &.spring {
+      animation: 1s springFadeUp linear;
+      animation-fill-mode: forwards;
+    }
+  }
 
   &.indicating {
     
@@ -273,7 +296,7 @@ export default {
     margin-bottom: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
-    transition: height 200ms;
+    // transition: height 200ms;
 
     .option {
       padding: 1rem 0;
@@ -404,8 +427,10 @@ export default {
   }
 
   &.done {
-    // opacity: 0.9;
-    box-shadow: $shadow-opaque;
+    .todo-item-spring-wrapper {
+      // opacity: 0.9;
+      box-shadow: $shadow-opaque;
+    }
 
     .hero {
       .done-checkbox {
