@@ -121,7 +121,7 @@ export default {
     }
 
     .manifesto {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       font-family: $font-text;
       font-weight: 500;
       line-height: 1.2;
@@ -135,7 +135,7 @@ export default {
     .expired-task {
       &, & * {
         font-family: $font-text;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         line-height: 1;
       }
 
@@ -180,7 +180,7 @@ export default {
     justify-content: center;
     color: $white;
     font-family: $font-text;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 700;
   }
 }
