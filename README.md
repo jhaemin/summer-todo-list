@@ -12,6 +12,7 @@ A simple, elegant and cool TODO list web application.
 * Setting a duedate
 * Changing a priority
 * Marking as a done task
+* Notifying the out of date tasks.
 
 STL stores your private data into your own device using the browsers' localStorage API.
 
