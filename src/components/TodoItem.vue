@@ -2,6 +2,7 @@
   <li class="todo-item"
     :class="{done: isDone}"
   >
+    <div class="priority-indicator" :class="`priority--${info.priority}`"></div>
     <div class="hero">
       <div @click="toggleDone" class="done-checkbox"></div>
       <input
@@ -46,6 +47,20 @@
             <button class="no-duedate" @click="setDueDate(false)"></button>
           </div>
         </div>
+        <div class="priority">
+          <p class="title" @click="setPriority(true)">Priority</p>
+          <div class="priority-select">
+            <div class="input-wrapper">
+              <input type="radio" value="1" @change="setPriority(true)" v-model="priority" class="p1">
+            </div>
+            <div class="input-wrapper">
+              <input type="radio" value="2"  @change="setPriority(true)" v-model="priority" class="p2">
+            </div>
+            <div class="input-wrapper">
+              <input type="radio" value="3"  @change="setPriority(true)" v-model="priority" class="p3">
+            </div>
+          </div>
+        </div>
         <div class="delete-wrapper">
           <button class="delete" @click="$emit('delete')"></button>
         </div>
@@ -69,7 +84,8 @@ export default {
       taskTitle: this.info.title,
       dueYear: null,
       dueMonth: null,
-      dueDay: null
+      dueDay: null,
+      priority: null
     }
   },
   computed: {
@@ -118,11 +134,15 @@ export default {
       this.$emit('updateTitle', index, newTitle)
     },
     setDueDate(isSet) {
-      this.isDueSet = isSet
       if (isSet) {
         this.$emit('setDueDate', this.index, this.dueYear, this.dueMonth, this.dueDay)
       } else {
         this.$emit('setDueDate', this.index, false)
+      }
+    },
+    setPriority(isSet) {
+      if (isSet) {
+        this.$emit('setPriority', this.index, this.priority)
       }
     }
   },
@@ -143,6 +163,8 @@ export default {
       this.dueMonth = date.getMonth() + 1
       this.dueDay = date.getDate()
     }
+
+    this.priority = this.info.priority
   }
 }
 </script>
@@ -152,16 +174,37 @@ export default {
 @import 'Styles/global-mixins';
 
 .todo-item {
+  position: relative;
   width: 100%;
   background-color: $white;
   box-shadow: $shadow;
   margin-bottom: 1rem;
   border-radius: 0.5rem;
   overflow: hidden;
-  transition: opacity 300ms ease;
+  transition: opacity 300ms ease, box-shadow 300ms ease;
 
   &.indicating {
     
+  }
+
+  .priority-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0.3rem;
+    pointer-events: none;
+    border-radius: 0.5rem 0 0 0.5rem;
+
+    &.priority--1 {
+      background-color: #c1fa8c;
+    }
+    &.priority--2 {
+      background-color: #ffd885;
+    }
+    &.priority--3 {
+      background-color: #ff8989;
+    }
   }
 
   .hero {
@@ -172,13 +215,14 @@ export default {
       cursor: pointer;
       display: inline-block;
       margin-left: 1.2rem;
-      $size: 1.3rem;
+      $size: 1.5rem;
       min-width: $size;
       max-width: $size;
       min-height: $size;
       max-height: $size;
       border-radius: 50%;
       border: 3px solid #c5c5c5;
+      @include bgImg('/assets/images/check_mark.svg', '70%', 'center');
       transition: border 300ms ease, background-color 300ms ease;
     }
 
@@ -229,7 +273,7 @@ export default {
     margin-bottom: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
-    transition: height 300ms;
+    transition: height 200ms;
 
     .option {
       padding: 1rem 0;
@@ -240,30 +284,31 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         cursor: pointer;
         user-select: none;
-
-        * {
-          font-weight: 700;
-        }
 
         &::before {
           content: '';
           margin-right: 0.3rem;
           display: inline-block;
-          width: 1.2rem;
-          height: 1.2rem;
-          background-image: url('/assets/images/duedate.svg');
-          background-repeat: no-repeat;
-          background-size: 1.2rem;
-          background-position: center;
+          width: 1.3rem;
+          height: 1.3rem;
+        }
+
+        &, & * {
+          font-weight: 700;
         }
       }
 
       .due-date {
+        .title {
+          &::before {
+            @include bgImg('/assets/images/duedate.svg', '100%', 'center');
+          }
+        }
+
         .date-select {
-          
           margin-top: 1rem;
           display: flex;
 
@@ -284,11 +329,66 @@ export default {
           }
         }
       }
+
+      .priority {
+        padding: 1rem 0;
+        margin-top: 1rem;
+        border-top: 1px solid darken($white-blue, 1%);
+        border-bottom: 1px solid darken($white-blue, 1%);
+
+        .title {
+          // color: #7123F4;
+
+          &::before {
+            @include bgImg('/assets/images/priority.svg', '100%', 'center');
+          }
+        }
+
+        .priority-select {
+          display: flex;
+          max-width: 10rem;
+          margin: auto;
+          padding-top: 1rem;
+
+          .input-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            input[type="radio"] {
+              cursor: pointer;
+              flex: 1;
+              appearance: none;
+              width: 100%;
+              max-width: 2rem;
+              height: 2rem;
+              background: #fff6a5;
+              border-radius: 0.3rem;
+              transition: box-shadow 200ms ease;
+
+              &.p1 {
+                background-color: #dfffab;
+              }
+              &.p2 {
+                background-color: #ffe19f;
+              }
+              &.p3 {
+                background-color: #ffa5a5;
+              }
+
+              &:checked {
+                box-shadow: 0 0 0 3px $gray;
+              }
+            }
+          }
+        }
+      }
     }
 
     .delete-wrapper {
       text-align: center;
-      margin-top: 1.5rem;
+      margin-top: 1rem;
 
       .delete {
         cursor: pointer;
@@ -297,16 +397,14 @@ export default {
         height: 2rem;
         background-color: #ffeff2;
         border-radius: $default-border-radius;
+        @include bgImg('/assets/images/trashbin.svg', '1.3rem', 'center');
         background-image: url('/assets/images/trashbin.svg');
-        background-repeat: no-repeat;
-        background-size: 1.2rem;
-        background-position: center;
       }
     }
   }
 
   &.done {
-    opacity: 0.7;
+    // opacity: 0.9;
     box-shadow: $shadow-opaque;
 
     .hero {
