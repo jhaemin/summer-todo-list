@@ -19,7 +19,7 @@ STL stores your private data into your own device using the browsers' localStora
 
 ## Try the App Directly from My Server
 
-I prepared the application on my website and you can test it right away by just going [here](https://www.jhaemin.com/todolist).
+I prepared the application on my website and you can test it right away from [here](https://www.jhaemin.com/todolist).
 
 
 ## Build instruction
